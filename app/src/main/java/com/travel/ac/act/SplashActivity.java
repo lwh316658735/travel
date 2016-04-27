@@ -67,13 +67,12 @@ public class SplashActivity extends BaseActivity
 							in.setClass(mActivity, MainActivity.class);
 							mActivity.startActivity(in);
 							removeSelfActivity();
-							//							finish();
+							finish();
 						}
 					});
 				}
 				container.addView(view);
 				return view;
-
 			}
 		});
 		vpSplash.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -96,6 +95,8 @@ public class SplashActivity extends BaseActivity
 
 			}
 		});
+
+
 	}
 
 	@Override

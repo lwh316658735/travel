@@ -2,6 +2,7 @@ package com.travel.ac.act;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -9,11 +10,12 @@ import android.support.v4.util.ArrayMap;
 import android.util.Log;
 import android.view.Window;
 
+import cn.jpush.android.api.JPushInterface;
+
 /**
  * Created by lwh on 2016/4/25. description 所有Activity的基类
  */
 public abstract class BaseActivity extends FragmentActivity {
-
     protected Activity mActivity;
     protected final String LOG_TAG = getClass().getSimpleName();
     //Activity栈
@@ -112,5 +114,29 @@ public abstract class BaseActivity extends FragmentActivity {
             }
         }
         return true;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.e(LOG_TAG, "onActivityResult: " + resultCode);
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    public void onStart() {
+        super.onStart();
+    }
+
+    protected void onResume() {
+        super.onResume();
+        JPushInterface.onResume(this);
+    }
+
+    protected void onPause() {
+        super.onPause();
+        JPushInterface.onPause(this);
+    }
+
+    public void onStop() {
+        super.onStop();
     }
 }
