@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">travel</string>
+    <string-array name="tab_string">
+        <item>首页</item>
+        <item>我的订单</item>
+        <item>我的旅游</item>
+        <item>联系我们</item>
+    </string-array>
+</resources>
