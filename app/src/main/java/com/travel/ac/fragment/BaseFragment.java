@@ -17,7 +17,7 @@ public abstract class BaseFragment extends Fragment
 	protected View			mView;
 	protected final String	SIMPLE_TAG	= getClass().getSimpleName();
 	protected final String	TAG			= getClass().getName();
-
+	private String test = "test";
 	@Override
 	public void onAttach(Context context)
 	{
