@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.travel.R;
+import com.travel.ac.utils.DataPersistence;
 import com.travel.ac.utils.GetAssignedResultId;
 import com.travel.ac.view.CircleView;
 
@@ -30,6 +31,15 @@ public class SplashActivity extends BaseActivity
 	@Override
 	protected void initData()
 	{
+		//判断是否第一次进入程序
+		if (DataPersistence.getData(mActivity).getBoolean(getString(R.string.FIRST), false))
+		{
+			Intent in = new Intent();
+			in.setClass(mActivity, MainActivity.class);
+			mActivity.startActivity(in);
+			finish();
+			return;
+		}
 		//设置viewpager适配器
 		vpSplash.setAdapter(new PagerAdapter() {
 			@Override
@@ -67,6 +77,7 @@ public class SplashActivity extends BaseActivity
 							in.setClass(mActivity, MainActivity.class);
 							mActivity.startActivity(in);
 							removeSelfActivity();
+							DataPersistence.addData(mActivity, getString(R.string.FIRST), true);
 							finish();
 						}
 					});
@@ -95,7 +106,6 @@ public class SplashActivity extends BaseActivity
 
 			}
 		});
-
 
 	}
 

@@ -5,4 +5,9 @@
     <color name="colorAccent">#FF4081</color>
     <color name="shortWhite">#ECECF3</color>
     <color name="babyBlue">#17A4CC</color>
+    <color name="order_title_background_color">#F2F2F2</color>
+    <color name="tab_host">#F7F7F9</color>
+    <color name="background_color">#EFEFF4</color>
+    <color name="font_title_color">#3F3F3F</color>
+    <color name="division">#DBDBDB</color>
 </resources>

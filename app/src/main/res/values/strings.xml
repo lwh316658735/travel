@@ -1,9 +1,17 @@
 <resources>
     <string name="app_name">travel</string>
+    <string name="FIRST">assert_first</string>
     <string-array name="tab_string">
         <item>首页</item>
         <item>我的订单</item>
         <item>我的旅游</item>
         <item>联系我们</item>
+    </string-array>
+    <string-array name="order_pager_item">
+        <item>酒店订单</item>
+        <item>旅游订单</item>
+        <item>其他订单</item>
+        <item>4213订单</item>
+        <item>车票订单</item>
     </string-array>
 </resources>

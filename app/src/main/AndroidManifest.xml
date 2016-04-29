@@ -34,7 +34,9 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ac.act.SplashActivity">
+        <activity
+            android:name=".ac.act.SplashActivity"
+            android:screenOrientation="locked">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -43,14 +45,15 @@
         </activity>
         <activity android:name=".ac.act.MainActivity"/>
 
-        <!-- Rich push 核心功能 since 2.0.6-->
+        <!-- Rich push 核心功能 since 2.0.6 -->
         <activity
             android:name="cn.jpush.android.ui.PopWinActivity"
             android:exported="false"
+            android:screenOrientation="landscape"
             android:theme="@style/MyDialogStyle">
         </activity>
 
-        <!-- Required SDK核心功能-->
+        <!-- Required SDK核心功能 -->
         <activity
             android:name="cn.jpush.android.ui.PushActivity"
             android:configChanges="orientation|keyboardHidden"
@@ -63,15 +66,14 @@
                 <category android:name="com.travel"/>
             </intent-filter>
         </activity>
-        <!-- Required  SDK核心功能-->
+        <!-- Required  SDK核心功能 -->
         <service
             android:name="cn.jpush.android.service.DownloadService"
             android:enabled="true"
             android:exported="false">
         </service>
 
-
-        <!-- Required SDK 核心功能-->
+        <!-- Required SDK 核心功能 -->
         <!-- 可配置android:process参数将PushService放在其他进程中 -->
         <service
             android:name="cn.jpush.android.service.PushService"
@@ -93,18 +95,19 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="cn.jpush.android.intent.DaemonService"/>
+
                 <category android:name="com.travel"/>
             </intent-filter>
-
         </service>
 
-        <!-- Required SDK核心功能-->
+        <!-- Required SDK核心功能 -->
         <receiver
             android:name="cn.jpush.android.service.PushReceiver"
             android:enabled="true"
             android:exported="false">
             <intent-filter android:priority="1000">
-                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED_PROXY"/>   <!--Required  显示通知栏 -->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED_PROXY"/>
+                <!-- Required  显示通知栏 -->
                 <category android:name="com.travel"/>
             </intent-filter>
             <intent-filter>
@@ -118,10 +121,9 @@
 
                 <data android:scheme="package"/>
             </intent-filter>
-
         </receiver>
 
-        <!-- Required SDK核心功能-->
+        <!-- Required SDK核心功能 -->
         <receiver
             android:name="cn.jpush.android.service.AlarmReceiver"
             android:exported="false"/>
@@ -132,7 +134,10 @@
             android:value="developer-default"/>
         <meta-data
             android:name="JPUSH_APPKEY"
-            android:value="8dbe742249f152acc52945ea"/> <!--  </>值来自开发者平台取得的AppKey-->
+            android:value="8dbe742249f152acc52945ea"/>
+        <!-- </>值来自开发者平台取得的AppKey -->
+        <activity android:name=".ac.act.LoginActivity">
+        </activity>
     </application>
 
 </manifest>
