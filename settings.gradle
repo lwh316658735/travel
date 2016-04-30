@@ -1,1 +1,1 @@
-include ':app', ':JPushExample', ':sample', ':materialviewpagercontroller', ':materialviewpager'
+include ':app', ':JPushExample'

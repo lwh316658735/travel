@@ -8,7 +8,7 @@ import android.widget.BaseAdapter;
 import java.util.List;
 
 /**
- * Created by lwh on 2016/4/29. description
+ * Created by lwh on 2016/4/29. description 一个通用的Adapter
  */
 public abstract class BaseViewHolderAdapter<T extends BaseViewHolder> extends BaseAdapter
 {
@@ -18,6 +18,12 @@ public abstract class BaseViewHolderAdapter<T extends BaseViewHolder> extends Ba
 	protected int			mPosition;
 	private List<Object>	mDatas;
 
+	/**
+	 * 
+	 * @param datas
+	 *            数据源
+	 * @param activity
+	 */
 	public BaseViewHolderAdapter(List<Object> datas, Activity activity)
 	{
 		mDatas = datas;
@@ -45,12 +51,34 @@ public abstract class BaseViewHolderAdapter<T extends BaseViewHolder> extends Ba
 		return mView;
 	}
 
+	/**
+	 * 返回item的布局对象
+	 * 
+	 * @return
+	 */
 	protected abstract View setItemView();
 
+	/**
+	 * 初始化item的控件
+	 * 
+	 * @param baseViewHolder
+	 *            holder
+	 */
 	protected abstract void initItemView(T baseViewHolder);
 
+	/**
+	 * 子类实现listview需要完成的逻辑
+	 * 
+	 * @param baseViewHolder
+	 *            holder
+	 */
 	protected abstract void initItemData(T baseViewHolder);
 
+	/**
+	 * 返回对应的item的viewholder
+	 * 
+	 * @return
+	 */
 	protected abstract T setViewHolder();
 
 	@Override
