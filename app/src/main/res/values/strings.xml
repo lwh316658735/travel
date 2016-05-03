@@ -1,6 +1,15 @@
 <resources>
     <string name="app_name">travel</string>
     <string name="FIRST">assert_first</string>
+    <string name="bt_login">登录</string>
+    <string name="userNo">账号</string>
+    <string name="user_hint">手机号/用户名</string>
+    <string name="passwordText">密码</string>
+    <string name="password_hint">请输入密码</string>
+    <string name="phoneNo">手机号</string>
+    <string name="input_phone">请输入手机号</string>
+    <string name="checkNo">验证码</string>
+    <string name="input_checkNP">请输入手机获取的验证码</string>
     <string-array name="tab_string">
         <item>首页</item>
         <item>我的订单</item>
@@ -9,9 +18,20 @@
     </string-array>
     <string-array name="order_pager_item">
         <item>酒店订单</item>
-        <item>旅游订单</item>
-        <item>其他订单</item>
-        <item>4213订单</item>
+        <item>景区订单</item>
+        <item>套票订单</item>
         <item>车票订单</item>
+    </string-array>
+    <string-array name="my_travel">
+        <item>我的订单</item>
+        <item>我的电子券</item>
+        <item>我的优惠券</item>
+        <item> </item>
+        <item>设置</item>
+        <item>关于</item>
+    </string-array>
+    <string-array name="login_hint">
+        <item>账号登陆</item>
+        <item>手机登录</item>
     </string-array>
 </resources>

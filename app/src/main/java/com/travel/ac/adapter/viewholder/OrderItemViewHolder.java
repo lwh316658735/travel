@@ -3,8 +3,6 @@ package com.travel.ac.adapter.viewholder;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.travel.ac.adapter.BaseViewHolder;
-
 /**
  * Created by lwh on 2016/4/29. description
  */

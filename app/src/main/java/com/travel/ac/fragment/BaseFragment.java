@@ -11,12 +11,13 @@ import android.view.ViewGroup;
 /**
  * Created by lwh on 2016/4/27. description 同BaseActivity相似
  */
-public abstract class BaseFragment extends Fragment
+public abstract class BaseFragment extends Fragment implements View.OnClickListener
 {
 	protected Context		mContext;
 	protected View			mView;
 	protected final String	SIMPLE_TAG	= getClass().getSimpleName();
 	protected final String	TAG			= getClass().getName();
+
 	@Override
 	public void onAttach(Context context)
 	{
@@ -41,4 +42,9 @@ public abstract class BaseFragment extends Fragment
 
 	protected abstract void initData();
 
+	@Override
+	public void onClick(View v)
+	{
+
+	}
 }

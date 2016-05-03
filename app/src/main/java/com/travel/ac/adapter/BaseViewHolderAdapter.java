@@ -5,6 +5,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
+import com.travel.ac.adapter.viewholder.BaseViewHolder;
+
 import java.util.List;
 
 /**
@@ -13,7 +15,7 @@ import java.util.List;
 public abstract class BaseViewHolderAdapter<T extends BaseViewHolder> extends BaseAdapter
 {
 
-	private Activity		mActivity;
+	protected Activity		mActivity;
 	protected View			mView;
 	protected int			mPosition;
 	private List<Object>	mDatas;

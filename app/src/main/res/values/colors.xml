@@ -10,4 +10,6 @@
     <color name="background_color">#EFEFF4</color>
     <color name="font_title_color">#3F3F3F</color>
     <color name="division">#DBDBDB</color>
+    <color name="division2">#D2D2D2</color>
+    <color name="button_color">#F39C12</color>
 </resources>
