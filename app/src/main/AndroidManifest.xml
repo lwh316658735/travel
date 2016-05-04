@@ -138,6 +138,14 @@
         <!-- </>值来自开发者平台取得的AppKey -->
         <activity android:name=".ac.act.LoginActivity">
         </activity>
+        <activity android:name=".ac.act.DianZiQuanActivity">
+        </activity>
+        <activity android:name=".ac.act.MyCouponActivity">
+        </activity>
+        <activity android:name=".ac.act.SettingActivity">
+        </activity>
+        <activity android:name=".ac.act.AboutActivity">
+        </activity>
     </application>
 
 </manifest>

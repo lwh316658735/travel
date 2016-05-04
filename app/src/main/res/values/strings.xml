@@ -34,4 +34,15 @@
         <item>账号登陆</item>
         <item>手机登录</item>
     </string-array>
+    <array name="str_main">
+        <item></item>
+        <item>景区门票</item>
+        <item>出境游</item>
+        <item>国内游</item>
+        <item>底价疯抢</item>
+        <item>周边</item>
+        <item>度假酒店</item>
+        <item>酒店</item>
+        <item>自驾游</item>
+    </array>
 </resources>

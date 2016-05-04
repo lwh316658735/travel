@@ -18,7 +18,7 @@ public abstract class BaseViewHolderAdapter<T extends BaseViewHolder> extends Ba
 	protected Activity		mActivity;
 	protected View			mView;
 	protected int			mPosition;
-	private List<Object>	mDatas;
+	protected List<Object>	mDatas;
 
 	/**
 	 * 
@@ -26,7 +26,7 @@ public abstract class BaseViewHolderAdapter<T extends BaseViewHolder> extends Ba
 	 *            数据源
 	 * @param activity
 	 */
-	public BaseViewHolderAdapter(List<Object> datas, Activity activity)
+	public BaseViewHolderAdapter(List datas, Activity activity)
 	{
 		mDatas = datas;
 		mActivity = activity;
@@ -50,7 +50,7 @@ public abstract class BaseViewHolderAdapter<T extends BaseViewHolder> extends Ba
 			baseViewHolder = (T) convertView.getTag();
 		}
 		initItemData(baseViewHolder);
-		return mView;
+		return convertView;
 	}
 
 	/**

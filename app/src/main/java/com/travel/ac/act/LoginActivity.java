@@ -63,10 +63,10 @@ public class LoginActivity extends BaseActivity
 				}
 				else
 				{
-                    textView2.setText(R.string.phoneNo);
-                    tvUser.setHint(R.string.input_phone);
-                    textView3.setText(R.string.checkNo);
-                    tvPassword.setHint(R.string.input_checkNP);
+					textView2.setText(R.string.phoneNo);
+					tvUser.setHint(R.string.input_phone);
+					textView3.setText(R.string.checkNo);
+					tvPassword.setHint(R.string.input_checkNP);
 				}
 				viewGroup.addView(view);
 				return view;
@@ -89,11 +89,17 @@ public class LoginActivity extends BaseActivity
 				container.removeView((View) object);
 			}
 		});
-        indicator.setTitle(getResources().getStringArray(R.array.login_hint));
+		indicator.setTitle(getResources().getStringArray(R.array.login_hint));
 
 		indicator.setFades(false);
 		indicator.setViewPager(pager);
-
+		ivBack.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v)
+			{
+				finish();
+			}
+		});
 	}
 
 	@Override
@@ -104,6 +110,5 @@ public class LoginActivity extends BaseActivity
 		tvRegister = (TextView) findViewById(R.id.tv_register);
 		indicator = (UnderlinePageIndicator) findViewById(R.id.indicator);
 		pager = (ViewPager) findViewById(R.id.pager);
-
 	}
 }

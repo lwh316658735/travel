@@ -3,12 +3,17 @@ package com.travel.ac.fragment;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.travel.R;
+import com.travel.ac.act.AboutActivity;
+import com.travel.ac.act.DianZiQuanActivity;
 import com.travel.ac.act.LoginActivity;
+import com.travel.ac.act.MyCouponActivity;
+import com.travel.ac.act.SettingActivity;
 import com.travel.ac.adapter.MyTravelAdapter;
 import com.travel.ac.bean.MyTravelItemBean;
 
@@ -62,11 +67,37 @@ public class MyTravelFragment extends BaseFragment implements View.OnClickListen
 		tvLogin.setOnClickListener(this);
 		MyTravelAdapter travelAdapter = new MyTravelAdapter(datas, (Activity) mContext);
 		lvMyListview.setAdapter(travelAdapter);
+		lvMyListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+			{
+
+				Intent in = new Intent();
+				switch (position)
+				{
+					case 0:
+
+					case 1:
+						in.setClass(mContext, DianZiQuanActivity.class);
+						break;
+					case 2:
+						in.setClass(mContext, MyCouponActivity.class);
+						break;
+					case 4:
+						in.setClass(mContext, SettingActivity.class);
+						break;
+					case 5:
+						in.setClass(mContext, AboutActivity.class);
+				}
+				startActivity(in);
+			}
+		});
 	}
 
 	@Override
 	public void onClick(View v)
 	{
 		startActivity(new Intent(mContext, LoginActivity.class));
+
 	}
 }
