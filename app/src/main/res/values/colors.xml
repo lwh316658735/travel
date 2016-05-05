@@ -12,4 +12,6 @@
     <color name="division">#DBDBDB</color>
     <color name="division2">#D2D2D2</color>
     <color name="button_color">#F39C12</color>
+    <color name="dimgrad">#E2DCDC</color>
+    <color name="black">#FF000000</color>
 </resources>

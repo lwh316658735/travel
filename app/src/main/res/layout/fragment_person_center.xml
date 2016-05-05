@@ -63,17 +63,20 @@
         android:textSize="18sp"/>
 
 
+    <ListView
+        android:id="@+id/lv_myListview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/imageView4"
+        android:background="#FFFFFF"
+        android:divider="@drawable/shapr_divider"
+        android:dividerHeight="1dp"
+        android:footerDividersEnabled="false"
+        android:headerDividersEnabled="false"
 
-        <ListView
-            android:id="@+id/lv_myListview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/imageView4"
-            android:background="#FFFFFF"
-
-            />
+        />
 
 
 </RelativeLayout>

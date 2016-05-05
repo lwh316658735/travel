@@ -3,6 +3,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:minHeight="45dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
     >
 
     <ImageView
@@ -28,12 +30,5 @@
         android:textColor="#4B4B4B"
         android:textSize="15sp"/>
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="15dp"
-        android:background="@color/division"/>
 
 </RelativeLayout>

@@ -5,7 +5,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 
 /**
@@ -65,12 +64,12 @@ public class CircleView extends View
 	protected void onDraw(Canvas canvas)
 	{
 		mWidth = getWidth();
-		Log.e(LOG_TAG, "width: " + mWidth);
+//		Log.e(LOG_TAG, "width: " + mWidth);
 		mHeight = getHeight();
 		mStartPoint = mWidth / 5 * 3 / 2 + 0.5f;
 		mInterval = (mWidth - mStartPoint * 2) / (mNumber);
-		Log.e(LOG_TAG, "start x: " + mStartPoint);
-		Log.e(LOG_TAG, "interval: " + mInterval);
+//		Log.e(LOG_TAG, "start x: " + mStartPoint);
+//		Log.e(LOG_TAG, "interval: " + mInterval);
 		for (int i = 0; i < mNumber; i++)
 		{
 			if (i == mSelectedCircle)
@@ -81,7 +80,7 @@ public class CircleView extends View
 			{
 				canvas.drawCircle(mStartPoint + (mInterval * i + mInterval / 2), mHeight / 2, R, mNormalPaint);
 			}
-			Log.e(LOG_TAG, "x: " + (mStartPoint + (mInterval * i + mInterval / 2)));
+//			Log.e(LOG_TAG, "x: " + (mStartPoint + (mInterval * i + mInterval / 2)));
 		}
 		super.onDraw(canvas);
 	}

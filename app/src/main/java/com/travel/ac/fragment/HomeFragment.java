@@ -2,8 +2,7 @@ package com.travel.ac.fragment;
 
 import android.app.Activity;
 import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.util.Log;
+import android.support.v4.myview.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
@@ -100,7 +99,7 @@ public class HomeFragment extends BaseFragment
 				linearLayout.setLayoutParams(params1);
 				linearLayout.addView(imageView);
 				int mipmap = GetAssignedResultId.GetAssigned("banner_" + ((position - 1000) % 5), "mipmap");
-				Log.e(LOG_TAG, "instantiateItem: " + mipmap);
+//				Log.e(LOG_TAG, "instantiateItem: " + mipmap);
 				imageView.setBackgroundResource(mipmap);
 				container.addView(linearLayout);
 				return linearLayout;
