@@ -15,6 +15,7 @@ import com.travel.ac.act.LoginActivity;
 import com.travel.ac.act.MyCouponActivity;
 import com.travel.ac.act.SettingActivity;
 import com.travel.ac.adapter.MyTravelAdapter;
+import com.travel.ac.bean.GlobalParameter;
 import com.travel.ac.bean.MyTravelItemBean;
 
 import java.util.ArrayList;
@@ -50,6 +51,23 @@ public class MyTravelFragment extends BaseFragment implements View.OnClickListen
 	}
 
 	@Override
+	public void onResume()
+	{
+		super.onResume();
+		if (GlobalParameter.ASSERT_LOGIN && GlobalParameter.sLoginBean != null)
+		{
+			ivLogin.setBackgroundResource(R.mipmap.person_touxiang_denglu);
+			tvLogin.setText(GlobalParameter.sLoginBean.getUser());
+		}
+		else
+		{
+			ivLogin.setBackgroundResource(R.mipmap.person_touxiang_weidenglu);
+			tvLogin.setText("点击登录");
+		}
+
+	}
+
+	@Override
 	protected void initData()
 	{
 		datas = new ArrayList<>();
@@ -73,23 +91,30 @@ public class MyTravelFragment extends BaseFragment implements View.OnClickListen
 			{
 
 				Intent in = new Intent();
-				switch (position)
+				if (GlobalParameter.ASSERT_LOGIN)
 				{
-					case 0:
+					switch (position)
+					{
+						case 0:
 
-					case 1:
-						in.setClass(mContext, DianZiQuanActivity.class);
-						break;
-					case 2:
-						in.setClass(mContext, MyCouponActivity.class);
-						break;
-					case 4:
-						in.setClass(mContext, SettingActivity.class);
-						break;
-					case 5:
-						in.setClass(mContext, AboutActivity.class);
+						case 1:
+							in.setClass(mContext, DianZiQuanActivity.class);
+							break;
+						case 2:
+							in.setClass(mContext, MyCouponActivity.class);
+							break;
+						case 4:
+							in.setClass(mContext, SettingActivity.class);
+							break;
+						case 5:
+							in.setClass(mContext, AboutActivity.class);
+					}
+					startActivity(in);
 				}
-				startActivity(in);
+				else
+				{
+					startActivity(new Intent(mContext, LoginActivity.class));
+				}
 			}
 		});
 	}
@@ -97,7 +122,10 @@ public class MyTravelFragment extends BaseFragment implements View.OnClickListen
 	@Override
 	public void onClick(View v)
 	{
-		startActivity(new Intent(mContext, LoginActivity.class));
+		if (!GlobalParameter.ASSERT_LOGIN)
+		{
+			startActivity(new Intent(mContext, LoginActivity.class));
+		}
 
 	}
 }

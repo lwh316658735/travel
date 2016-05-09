@@ -5,9 +5,9 @@ package com.travel.ac.bean;
  */
 public class LoginBean
 {
-	private String	user;
 	private String	psd;
 	private String	ret;
+	private String	user;
 
 	public String getUser()
 	{
@@ -37,5 +37,15 @@ public class LoginBean
 	public void setRet(String ret)
 	{
 		this.ret = ret;
+	}
+
+	@Override
+	public String toString()
+	{
+		return "LoginBean{" +
+				"user='" + user + '\'' +
+				", psd='" + psd + '\'' +
+				", ret='" + ret + '\'' +
+				'}';
 	}
 }

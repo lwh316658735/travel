@@ -2,7 +2,6 @@ package com.travel.ac.fragment;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -10,8 +9,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.travel.R;
-import com.travel.ac.act.LoginActivity;
+import com.travel.ac.act.OrderListActivity;
 import com.travel.ac.adapter.OrderMenuAdapter;
+import com.travel.ac.bean.GlobalParameter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,7 +63,15 @@ public class MyOrderFragment extends BaseFragment implements AdapterView.OnItemC
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id)
 	{
-        startActivity(new Intent(mContext, LoginActivity.class));
-        Log.e(LOG_TAG, "onItemClick: " + mDatas.get(position));
+		if (GlobalParameter.ASSERT_LOGIN)
+		{
+
+		}
+		else
+		{
+			//TODO
+			startActivity(new Intent(mContext, OrderListActivity.class));
+		}
+		//        Log.e(LOG_TAG, "onItemClick: " + mDatas.get(position));
 	}
 }

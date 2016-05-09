@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/iv_item_spot"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_margin="15dp"
+        android:background="@mipmap/item1"/>
+
+    <TextView
+        android:id="@+id/tv_item_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_toEndOf="@+id/iv_item_spot"
+        android:layout_toRightOf="@+id/iv_item_spot"
+        android:text="看的发送到发送到"
+        android:textColor="@color/black"
+        android:textSize="12sp"/>
+
+    <TextView
+        android:id="@+id/tv_item_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tv_item_title"
+        android:layout_alignStart="@+id/tv_item_title"
+        android:layout_below="@+id/tv_item_title"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="5dp"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:text="是东方时空的减肥快到家了是对方就开了大解放了肯定就是市领导及付款时间的浪费上课了等级分类看电视剧是东方时空的减肥快到家了是对方就开了大解放了肯定就是市领导及付款时间的浪费上课了等级分类看电视剧是东方时空的减肥快到家了是对方就开了大解放了肯定就是市领导及付款时间的浪费上课了等级分类看电视剧"
+        android:textSize="10sp"/>
+
+    <TextView
+        android:id="@+id/tv_item_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/iv_item_spot"
+        android:layout_alignEnd="@+id/tv_item_description"
+        android:layout_alignRight="@+id/tv_item_description"
+        android:text="￥30起"
+        android:textColor="@color/button_color"
+        android:textSize="15sp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/division"
+        android:layout_below="@+id/iv_item_spot"
+        android:layout_alignLeft="@+id/tv_item_description"
+        android:layout_alignStart="@+id/tv_item_description"/>
+</RelativeLayout>

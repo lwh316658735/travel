@@ -20,6 +20,16 @@ public abstract class BaseViewHolderAdapter<T extends BaseViewHolder> extends Ba
 	protected int			mPosition;
 	protected List<Object>	mDatas;
 
+	public List<Object> getDatas()
+	{
+		return mDatas;
+	}
+
+	public void setDatas(List datas)
+	{
+		mDatas = datas;
+	}
+
 	/**
 	 * 
 	 * @param datas

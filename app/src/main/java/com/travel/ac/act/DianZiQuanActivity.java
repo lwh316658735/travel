@@ -8,9 +8,7 @@ import com.travel.R;
 
 public class DianZiQuanActivity extends BaseActivity
 {
-	private ImageView	ivBack;
-	private TextView	tvTitleContent;
-	private TextView	tvRegister;
+
 	private ImageView	imNormal;
 	private TextView	tvDianziquanHint;
 
@@ -37,9 +35,7 @@ public class DianZiQuanActivity extends BaseActivity
 	@Override
 	protected void initView()
 	{
-		ivBack = (ImageView) findViewById(R.id.iv_back);
-		tvTitleContent = (TextView) findViewById(R.id.tv_title_content);
-		tvRegister = (TextView) findViewById(R.id.tv_register);
+
 		imNormal = (ImageView) findViewById(R.id.im_normal);
 		tvDianziquanHint = (TextView) findViewById(R.id.tv_dianziquan_hint);
 	}

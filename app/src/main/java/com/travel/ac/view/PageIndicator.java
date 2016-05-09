@@ -17,7 +17,7 @@
 
 package com.travel.ac.view;
 
-import android.support.v4.myview.ViewPager;
+import android.support.v4.view.ViewPager;
 
 /**
  * A PageIndicator is responsible to show an visual indicator on the total views

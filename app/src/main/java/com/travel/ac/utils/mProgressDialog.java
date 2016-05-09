@@ -29,6 +29,7 @@ public class mProgressDialog extends ProgressDialog
 	public mProgressDialog(Context context, mProgressListener listener)
 	{
 		this(context);
+		mcontext = context;
 		this.mListener = listener;
 
 	}
@@ -51,22 +52,25 @@ public class mProgressDialog extends ProgressDialog
 	public void show()
 	{
 		super.show();
-		ThreadPool.instance().submit(new Runnable() {
+		new Thread(new Runnable() {
 
 			@Override
 			public void run()
 			{
-				mListener.onProgress();
 				SystemClock.sleep(1000);
+				mListener.onProgress();
 				dismiss();
+//				((Activity) mcontext).finish();
 			}
-		});
+		}).start();
 	}
 
 	@Override
 	public void dismiss()
 	{
-		super.dismiss();
+//		if (((Activity) mcontext).isFinishing()) {
+			super.dismiss();
+//		}
 	}
 
 	@Override

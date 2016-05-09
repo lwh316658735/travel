@@ -6,6 +6,7 @@
         android:name="com.travel.permission.JPUSH_MESSAGE"
         android:protectionLevel="signature"/>
 
+    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES"/>
     <uses-permission android:name="com.travel.permission.JPUSH_MESSAGE"/>
     <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT"/>
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -145,6 +146,14 @@
         <activity android:name=".ac.act.SettingActivity">
         </activity>
         <activity android:name=".ac.act.AboutActivity">
+        </activity>
+        <activity android:name=".ac.act.ItemActivity">
+        </activity>
+        <activity android:name=".ac.act.ParticularSpotActivity">
+        </activity>
+        <activity android:name=".ac.act.OrderSubmitAtivity">
+        </activity>
+        <activity android:name=".ac.act.OrderListActivity">
         </activity>
     </application>
 

@@ -4,7 +4,7 @@ import android.annotation.TargetApi;
 import android.content.Intent;
 import android.os.Build;
 import android.support.v4.view.PagerAdapter;
-import android.support.v4.myview.ViewPager;
+import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -19,8 +19,8 @@ import com.travel.ac.view.CircleView;
  */
 public class SplashActivity extends BaseActivity
 {
-	private ViewPager	vpSplash;
-	private CircleView	cvCircle;
+	private ViewPager  vpSplash;
+	private CircleView cvCircle;
 
 	@Override
 	protected int setLayoutId()

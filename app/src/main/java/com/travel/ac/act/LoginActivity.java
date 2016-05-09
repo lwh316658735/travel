@@ -1,7 +1,7 @@
 package com.travel.ac.act;
 
-import android.support.v4.myview.ViewPager;
 import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.google.gson.Gson;
@@ -21,11 +22,11 @@ import com.travel.ac.view.UnderlinePageIndicator;
 
 public class LoginActivity extends BaseActivity
 {
-	private ImageView				ivBack;
-	private TextView				tvTitleContent;
-	private TextView				tvRegister;
-	private UnderlinePageIndicator	indicator;
-	private ViewPager				pager;
+	private ImageView              ivBack;
+	private TextView               tvTitleContent;
+	private TextView               tvRegister;
+	private UnderlinePageIndicator indicator;
+	private ViewPager              pager;
 
 	@Override
 	protected int setLayoutId()
@@ -142,7 +143,19 @@ public class LoginActivity extends BaseActivity
 																		Log.e(LOG_TAG, "onResponse: " + response);
 																		Gson gson = new Gson();
 																		LoginBean loginBean = gson.fromJson(response, LoginBean.class);
-
+																		Log.e(LOG_TAG, "onResponse: " + loginBean);
+																		if (loginBean.getRet().equals("0"))
+																		{
+																			Log.e(LOG_TAG, "登录成功 ");
+																			GlobalParameter.ASSERT_LOGIN = true;
+																			GlobalParameter.sLoginBean = loginBean;
+                                                                            finish();
+																		}
+																		else
+																		{
+																			Log.e(LOG_TAG, "登录失败");
+																			Toast.makeText(mActivity, "用户不存在或密码错误", Toast.LENGTH_SHORT).show();
+																		}
 																	}
 																});
 						}
@@ -154,6 +167,7 @@ public class LoginActivity extends BaseActivity
 						}
 					});
 					msProgressDialog.show();
+
 				}
 
 			});

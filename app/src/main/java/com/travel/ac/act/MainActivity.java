@@ -67,4 +67,10 @@ public class MainActivity extends BaseActivity implements TabHost.OnTabChangeLis
         Log.e(LOG_TAG, "onTabChanged: " + tabId);
 
     }
+
+    @Override
+    protected void onDestroy() {
+        android.os.Process.killProcess(android.os.Process.myPid());
+        super.onDestroy();
+    }
 }
