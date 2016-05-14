@@ -1,7 +1,6 @@
 package com.travel.ac.fragment;
 
 import android.app.Activity;
-import android.view.View;
 import android.widget.ListView;
 
 import com.android.volley.Response;
@@ -36,7 +35,6 @@ public class HomeFragment extends BaseFragment
 	protected void initView()
 	{
 		mListView = (ListView) mView.findViewById(R.id.lv_home_list);
-
 	}
 
 	@Override
@@ -71,11 +69,6 @@ public class HomeFragment extends BaseFragment
 		super.onResume();
 	}
 
-	@Override
-	public void onClick(View v)
-	{
-
-	}
 
 	@Override
 	public void onPause()

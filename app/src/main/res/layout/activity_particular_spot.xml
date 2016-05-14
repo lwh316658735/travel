@@ -15,8 +15,9 @@
         <ImageView
             android:id="@+id/iv_particular_image"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:background="@mipmap/item2"/>
+            android:layout_height="wrap_content"
+            android:background="@mipmap/main_moren"
+            android:scaleType="fitXY"/>
 
         <View
             android:layout_width="match_parent"

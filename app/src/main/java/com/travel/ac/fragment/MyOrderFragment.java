@@ -9,6 +9,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.travel.R;
+import com.travel.ac.act.LoginActivity;
 import com.travel.ac.act.OrderListActivity;
 import com.travel.ac.adapter.OrderMenuAdapter;
 import com.travel.ac.bean.GlobalParameter;
@@ -65,12 +66,12 @@ public class MyOrderFragment extends BaseFragment implements AdapterView.OnItemC
 	{
 		if (GlobalParameter.ASSERT_LOGIN)
 		{
-
+			startActivity(new Intent(mContext, OrderListActivity.class));
 		}
 		else
 		{
 			//TODO
-			startActivity(new Intent(mContext, OrderListActivity.class));
+			startActivity(new Intent(mContext, LoginActivity.class));
 		}
 		//        Log.e(LOG_TAG, "onItemClick: " + mDatas.get(position));
 	}

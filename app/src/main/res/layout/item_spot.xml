@@ -9,7 +9,8 @@
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_margin="15dp"
-        android:background="@mipmap/item1"/>
+        android:background="@mipmap/item1"
+        android:scaleType="fitXY"/>
 
     <TextView
         android:id="@+id/tv_item_title"
@@ -50,8 +51,8 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/division"
-        android:layout_below="@+id/iv_item_spot"
         android:layout_alignLeft="@+id/tv_item_description"
-        android:layout_alignStart="@+id/tv_item_description"/>
+        android:layout_alignStart="@+id/tv_item_description"
+        android:layout_below="@+id/iv_item_spot"
+        android:background="@color/division"/>
 </RelativeLayout>

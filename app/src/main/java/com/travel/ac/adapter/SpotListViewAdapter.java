@@ -5,9 +5,10 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.lidroid.xutils.BitmapUtils;
 import com.travel.R;
 import com.travel.ac.adapter.viewholder.SpotListViewHolder;
-import com.travel.ac.bean.SpotListViewBean;
+import com.travel.ac.bean.SpotTicketJson;
 
 import java.util.List;
 
@@ -39,11 +40,12 @@ public class SpotListViewAdapter extends BaseViewHolderAdapter<SpotListViewHolde
 
     @Override
     protected void initItemData(SpotListViewHolder baseViewHolder) {
-        SpotListViewBean spotListViewBean = (SpotListViewBean) mDatas.get(mPosition);
-        baseViewHolder.getTitle().setText(spotListViewBean.getTitle());
-        baseViewHolder.getIcon().setBackgroundResource(R.mipmap.item1);
-        baseViewHolder.getContent().setText(spotListViewBean.getContent());
-        baseViewHolder.getPrice().setText(spotListViewBean.getPrice());
+        SpotTicketJson.ListBean spotListViewBean = (SpotTicketJson.ListBean) mDatas.get(mPosition);
+        baseViewHolder.getTitle().setText(spotListViewBean.getName());
+        BitmapUtils bitmapUtils = new BitmapUtils(mActivity);
+        bitmapUtils.display(baseViewHolder.getIcon(), spotListViewBean.getUrl());
+        baseViewHolder.getContent().setText(spotListViewBean.getDescription());
+        baseViewHolder.getPrice().setText("￥" + spotListViewBean.getPrice());
     }
 
     @Override

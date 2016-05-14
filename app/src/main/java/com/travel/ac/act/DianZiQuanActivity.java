@@ -1,6 +1,5 @@
 package com.travel.ac.act;
 
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,15 +20,7 @@ public class DianZiQuanActivity extends BaseActivity
 	@Override
 	protected void initData()
 	{
-		tvRegister.setVisibility(View.GONE);
-		tvTitleContent.setText("我的电子券");
-		ivBack.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v)
-			{
-				finish();
-			}
-		});
+		setTitle("我的电子券",true);
 	}
 
 	@Override

@@ -27,7 +27,8 @@
             android:layout_toEndOf="@+id/textView2"
             android:layout_toRightOf="@+id/textView2"
             android:background="@null"
-            android:hint="手机号/用户名"/>
+            android:hint="手机号/用户名"
+            android:text="123456"/>
 
         <ImageView
             android:id="@+id/imageView3"
@@ -60,7 +61,8 @@
             android:layout_marginBottom="20dp"
             android:background="@null"
             android:hint="请输入密码"
-            android:inputType="textPassword"/>
+            android:inputType="textPassword"
+            android:text="123456"/>
     </RelativeLayout>
 
     <Button

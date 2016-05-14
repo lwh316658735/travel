@@ -39,7 +39,8 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:hint="请输入取票人"
-            android:textSize="11sp"/>
+            android:textSize="11sp"
+            android:text="123"/>
     </RelativeLayout>
 
     <View
@@ -70,7 +71,8 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:hint="请输入手机号码"
-            android:textSize="11sp"/>
+            android:textSize="11sp"
+            android:text="13547128538"/>
     </RelativeLayout>
 
     <RelativeLayout

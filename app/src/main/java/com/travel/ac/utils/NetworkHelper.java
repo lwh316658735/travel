@@ -19,56 +19,75 @@ import java.io.UnsupportedEncodingException;
 /**
  * Created by lwh on 2016/5/4. description
  */
-public class NetworkHelper {
-    private static final String LOG_TAG = "NetworkHelper";
-    private static RequestQueue  mRequestQueue;
-    private static StringRequest mRequest;
+public class NetworkHelper
+{
+	private static final String		LOG_TAG	= "NetworkHelper";
+	private static RequestQueue		mRequestQueue;
+	private static StringRequest	mRequest;
 
-    public static boolean requestAndResponse(final Activity activity, String url, Response.Listener<String> listener) {
-        mRequestQueue = Volley.newRequestQueue(activity);
-        mRequest = new StringRequest(Request.Method.GET, url, listener, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(activity, "网络异常,请检查网络", Toast.LENGTH_LONG).show();
-                Log.e(LOG_TAG, "onErrorResponse: " + error.getMessage());
-            }
-        });
-        mRequestQueue.add(mRequest);
-        mRequestQueue.start();
-        return true;
-    }
+	public static boolean requestAndResponse(final Activity activity, String url, Response.Listener<String> listener)
+	{
+		mRequestQueue = Volley.newRequestQueue(activity);
+		mRequest = new StringRequest(Request.Method.GET, url, listener, new Response.ErrorListener() {
+			@Override
+			public void onErrorResponse(VolleyError error)
+			{
+				Toast.makeText(activity, "网络异常,请检查网络", Toast.LENGTH_LONG).show();
+				Log.e(LOG_TAG, "onErrorResponse: " + error.getMessage());
+			}
+		});
+		mRequestQueue.add(mRequest);
+		mRequestQueue.start();
+		return true;
+	}
 
-    public static void cancel() {
-        mRequestQueue.stop();
-    }
+	public static boolean requestAndResponse(final Activity activity, String url, Response.Listener<String> listener, Response.ErrorListener errorListener)
+	{
+		mRequestQueue = Volley.newRequestQueue(activity);
+		mRequest = new StringRequest(Request.Method.GET, url, listener, errorListener);
+		mRequestQueue.add(mRequest);
+		mRequestQueue.start();
+		return true;
+	}
 
-    public void cennetion(final Activity mActivity, String url) {
-        RequestQueue queue = Volley.newRequestQueue(mActivity);
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+	public static void cancel()
+	{
+		mRequestQueue.stop();
+	}
 
-            @Override
-            public void onResponse(JSONObject resJson) {
+	public void cennetion(final Activity mActivity, String url)
+	{
+		RequestQueue queue = Volley.newRequestQueue(mActivity);
+		JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
-                String jsonStr = null;
-                try {
-                    jsonStr = new String(resJson.toString().getBytes(), "UTF-8");
-                } catch (UnsupportedEncodingException e) {
-                    Toast.makeText(mActivity, "获取数据失败", Toast.LENGTH_LONG).show();
-                    e.printStackTrace();
-                    return;
-                }
-                Log.e(LOG_TAG, "onResponse: " + jsonStr);
-            }
+			@Override
+			public void onResponse(JSONObject resJson)
+			{
 
-        }, new Response.ErrorListener() {
+				String jsonStr = null;
+				try
+				{
+					jsonStr = new String(resJson.toString().getBytes(), "UTF-8");
+				}
+				catch (UnsupportedEncodingException e)
+				{
+					Toast.makeText(mActivity, "获取数据失败", Toast.LENGTH_LONG).show();
+					e.printStackTrace();
+					return;
+				}
+				Log.e(LOG_TAG, "onResponse: " + jsonStr);
+			}
 
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(mActivity, "网络异常,请检查网络", Toast.LENGTH_LONG).show();
-                Log.e(LOG_TAG, "onErrorResponse: " + error.getMessage());
-            }
-        });
-        queue.add(jsonObjectRequest);
-        queue.start();
-    }
+		}, new Response.ErrorListener() {
+
+			@Override
+			public void onErrorResponse(VolleyError error)
+			{
+				Toast.makeText(mActivity, "网络异常,请检查网络", Toast.LENGTH_LONG).show();
+				Log.e(LOG_TAG, "onErrorResponse: " + error.getMessage());
+			}
+		});
+		queue.add(jsonObjectRequest);
+		queue.start();
+	}
 }

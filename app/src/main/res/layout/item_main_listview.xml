@@ -10,7 +10,8 @@
         android:id="@+id/im_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@mipmap/temp3"
+        android:scaleType="fitXY"
+        android:background="@mipmap/main_moren"
         android:layout_gravity="center_horizontal"/>
 
     <TextView
