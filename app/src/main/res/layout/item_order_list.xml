@@ -78,6 +78,6 @@
             android:layout_alignTop="@+id/tv_order_date"
             android:layout_marginRight="15dp"
             android:background="@color/button_color"
-            android:text="未支付"/>
+            android:text="取消订单"/>
     </RelativeLayout>
 </LinearLayout>

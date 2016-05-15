@@ -27,7 +27,10 @@ public class ItemActivity extends BaseActivity {
     private TextView  tvTitleContent;
     private TextView  tvRegister;
     private ListView  lvSpotList;
+    private String    mDescript;
     List datas;
+    private String mAction = "/read_travel_ticket";
+    private String              mTable;
     private SpotListViewAdapter mSpotListViewAdapter;
 
     @Override
@@ -37,37 +40,37 @@ public class ItemActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        ivBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-        tvRegister.setVisibility(View.GONE);
-        tvTitleContent.setText("景点门票");
+        String title = getIntent().getStringExtra("title");
+        int    id    = getIntent().getIntExtra("id", 0);
+        switch (id) {
+            case 0:
+                mTable = "";
+                mDescript = "";
+                break;
+            case 1:
+                mTable = "?table=spot_list3";
+                mDescript = "&table=spot_description3";
+                break;
+            case 2:
+                mTable = "?table=spot_list4";
+                mDescript = "&table=spot_description4";
+                break;
+            case 3:
+                mTable = "?table=spot_list5";
+                mDescript = "&table=spot_description5";
+                break;
+        }
+        setTitle(title, true);
 
         datas = new ArrayList();
-        //        SpotListViewBean spotListViewBean = new SpotListViewBean();
-        //        spotListViewBean.setContent("水电费水电费水电费等所发生的士大夫似的啊");
-        //        spotListViewBean.setTitle("士大夫士大夫撒");
-        //        spotListViewBean.setPrice("￥30起");
-
-        //		datas.add(spotListViewBean);
 
         mSpotListViewAdapter = new SpotListViewAdapter(datas, mActivity);
         lvSpotList.setAdapter(mSpotListViewAdapter);
-        lvSpotList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent in = new Intent(mActivity, ParticularSpotActivity.class);
-                in.putExtra("id", position);
-                startActivity(in);
-            }
-        });
+
         mProgressDialog mProgressDialog = new mProgressDialog(this, new mProgressDialog.mProgressListener() {
             @Override
             public void onProgress() {
-                NetworkHelper.requestAndResponse(mActivity, GlobalParameter.URL_ROOT + "/read_travel_ticket", new Response.Listener<String>() {
+                NetworkHelper.requestAndResponse(mActivity, GlobalParameter.URL_ROOT + mAction + mTable, new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         SpotTicketJson spotTicketJson = new Gson().fromJson(response, SpotTicketJson.class);
@@ -117,6 +120,7 @@ public class ItemActivity extends BaseActivity {
                 in.putExtra("id", id2);
                 in.putExtra("price", bean.getPrice());
                 in.putExtra("name", bean.getName());
+                in.putExtra("table", mDescript);
                 startActivity(in);
             }
 

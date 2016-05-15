@@ -19,8 +19,6 @@
     <string-array name="order_pager_item">
         <item>酒店订单</item>
         <item>景区订单</item>
-        <item>套票订单</item>
-        <item>车票订单</item>
     </string-array>
     <string-array name="my_travel">
         <item>我的订单</item>

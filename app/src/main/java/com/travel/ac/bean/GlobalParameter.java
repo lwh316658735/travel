@@ -5,7 +5,7 @@ package com.travel.ac.bean;
  */
 public class GlobalParameter
 {
-	public static String	IP				= "192.168.191.1";
+	public static String	IP				= "192.168.1.109";
 	public static String	URL_ROOT		= "http://" + IP + ":8080/TravelServer";
 
 	public static boolean	ASSERT_LOGIN	= false;

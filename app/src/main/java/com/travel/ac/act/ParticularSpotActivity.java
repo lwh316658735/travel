@@ -22,7 +22,7 @@ public class ParticularSpotActivity extends BaseActivity {
     private TextView  tvPrice;
     private Button    btOk;
     private TextView  tvSpotDescription;
-    private String    mType;
+    private String    mTable;
 
     @Override
     protected int setLayoutId() {
@@ -33,30 +33,35 @@ public class ParticularSpotActivity extends BaseActivity {
     protected void initData() {
         final Intent intent = getIntent();
         final int    id     = intent.getIntExtra("id", 0);
+        mTable = intent.getStringExtra("table");
+        if (mTable == null) {
+            mTable = "";
+        }
         mProgressDialog mProgressDialog = new mProgressDialog(mActivity, new mProgressDialog.mProgressListener() {
             @Override
             public void onProgress() {
-                NetworkHelper.requestAndResponse(mActivity, GlobalParameter.URL_ROOT + "/read_travel_ticket_description?id=" + id, new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        Log.e(LOG_TAG, "onResponse: " + response);
-                        final SpotTicketOrderJson spotTicketOrderJson = new Gson().fromJson(response, SpotTicketOrderJson.class);
-                        mActivity.runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                tvSpotDescription.setText(spotTicketOrderJson.getBean().getDescription());
-                                tvTitle.setText(intent.getStringExtra("name"));
-                                tvPrice.setText("￥" + intent.getStringExtra("price"));
-                                BitmapUtils bitmapUtils = new BitmapUtils(mActivity);
-                                bitmapUtils.display(ivParticularImage, spotTicketOrderJson.getBean().getUrl());
-                                mType = spotTicketOrderJson.getBean().getType();
-                                //                                Log.e(LOG_TAG, "run: " + spotTicketOrderJson.getBean());
+                NetworkHelper.requestAndResponse(mActivity, GlobalParameter.URL_ROOT + "/read_travel_ticket_description?id=" + id + mTable,
+                                                 new Response.Listener<String>() {
+                                                     @Override
+                                                     public void onResponse(String response) {
+                                                         Log.e(LOG_TAG, "onResponse: " + response);
+                                                         final SpotTicketOrderJson spotTicketOrderJson = new Gson().fromJson(response, SpotTicketOrderJson.class);
+                                                         mActivity.runOnUiThread(new Runnable() {
+                                                             @Override
+                                                             public void run() {
+                                                                 tvSpotDescription.setText(spotTicketOrderJson.getBean().getDescription());
+                                                                 tvTitle.setText(intent.getStringExtra("name"));
+                                                                 tvPrice.setText("￥" + intent.getStringExtra("price"));
+                                                                 BitmapUtils bitmapUtils = new BitmapUtils(mActivity);
+                                                                 bitmapUtils.display(ivParticularImage, spotTicketOrderJson.getBean().getUrl());
+                                                                 mTable = spotTicketOrderJson.getBean().getType();
+                                                                 //                                Log.e(LOG_TAG, "run: " + spotTicketOrderJson.getBean());
 
-                            }
-                        });
+                                                             }
+                                                         });
 
-                    }
-                });
+                                                     }
+                                                 });
             }
 
             @Override
@@ -71,8 +76,8 @@ public class ParticularSpotActivity extends BaseActivity {
             public void onClick(View v) {
                 Intent in = new Intent(mActivity, OrderSubmitAtivity.class);
                 in.putExtra("price", intent.getStringExtra("price"));
-                in.putExtra("type", mType);
-//                Log.e(LOG_TAG, "onClick: " + mType);
+                in.putExtra("type", mTable);
+                in.putExtra("title", intent.getStringExtra("name"));
                 startActivity(in);
             }
         });
