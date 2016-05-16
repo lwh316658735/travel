@@ -3,6 +3,7 @@ package com.travel.ac.act;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -14,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.travel.R;
+import com.travel.ac.MyReceive;
 
 import cn.jpush.android.api.JPushInterface;
 
@@ -23,12 +25,14 @@ import cn.jpush.android.api.JPushInterface;
 public abstract class BaseActivity extends FragmentActivity
 {
 	protected Activity							mActivity;
-	protected final String						LOG_TAG	= getClass().getSimpleName();
+	protected final String						LOG_TAG					= getClass().getSimpleName();
 	//Activity栈
 	protected static ArrayMap<String,Activity>	sStacks;
 	protected ImageView							ivBack;
 	protected TextView							tvTitleContent;
 	protected TextView							tvRegister;
+	private MyReceive							mMyReceive;
+	public static final String					MESSAGE_RECEIVED_ACTION	= "com.example.jpushdemo.MESSAGE_RECEIVED_ACTION";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -162,12 +166,18 @@ public abstract class BaseActivity extends FragmentActivity
 	{
 		super.onResume();
 		JPushInterface.onResume(this);
+		mMyReceive = new MyReceive();
+		IntentFilter filter = new IntentFilter();
+		filter.setPriority(IntentFilter.SYSTEM_HIGH_PRIORITY);
+		filter.addAction(MESSAGE_RECEIVED_ACTION);
+		registerReceiver(mMyReceive, filter);
 	}
 
 	protected void onPause()
 	{
 		super.onPause();
 		JPushInterface.onPause(this);
+		unregisterReceiver(mMyReceive);
 	}
 
 	public void onStop()
@@ -192,6 +202,6 @@ public abstract class BaseActivity extends FragmentActivity
 		{
 			tvRegister.setVisibility(View.GONE);
 		}
-        tvTitleContent.setText(title);
-    }
+		tvTitleContent.setText(title);
+	}
 }
