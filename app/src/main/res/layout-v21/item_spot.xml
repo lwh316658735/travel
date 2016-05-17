@@ -11,7 +11,7 @@
         android:layout_margin="15dp"
         android:background="@mipmap/default_ad_myuntu"
         android:scaleType="fitXY"
-        />
+        android:transitionName="icon"/>
 
     <TextView
         android:id="@+id/tv_item_title"

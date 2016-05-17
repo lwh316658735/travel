@@ -1,6 +1,9 @@
 package com.travel.ac.act;
 
+import android.annotation.TargetApi;
+import android.app.ActivityOptions;
 import android.content.Intent;
+import android.os.Build;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -103,6 +106,9 @@ public class ItemActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+
+
+
         ivBack = (ImageView) findViewById(R.id.iv_back);
         tvTitleContent = (TextView) findViewById(R.id.tv_title_content);
         tvRegister = (TextView) findViewById(R.id.tv_register);
@@ -110,9 +116,12 @@ public class ItemActivity extends BaseActivity {
     }
 
     class ListViewOnClick implements AdapterView.OnItemClickListener {
+        @TargetApi(Build.VERSION_CODES.LOLLIPOP)
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            List<Object> datas = mSpotListViewAdapter.getDatas();
+            List<Object>    datas           = mSpotListViewAdapter.getDatas();
+            ImageView       icon            = mSpotListViewAdapter.getSpotListViewHolders()[position].getIcon();
+            ActivityOptions activityOptions = ActivityOptions.makeSceneTransitionAnimation(mActivity, icon, "icon");
             if (datas != null && datas.size() > 0) {
                 SpotTicketJson.ListBean bean = (SpotTicketJson.ListBean) datas.get(position);
                 final int               id2  = bean.getId();
@@ -121,9 +130,16 @@ public class ItemActivity extends BaseActivity {
                 in.putExtra("price", bean.getPrice());
                 in.putExtra("name", bean.getName());
                 in.putExtra("table", mDescript);
-                startActivity(in);
+                startActivity(in, activityOptions.toBundle());
             }
 
         }
     }
+
+//    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+//    public void onClick2(View v) {
+//        ActivityOptions activityOptions = ActivityOptions.makeSceneTransitionAnimation(mActivity, testIv, "icon");
+//        Intent          in              = new Intent(mActivity, ParticularSpotActivity.class);
+//        startActivity(in, activityOptions.toBundle());
+//    }
 }

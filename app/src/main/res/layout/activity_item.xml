@@ -7,15 +7,18 @@
     tools:context="com.travel.ac.act.ItemActivity">
 
     <include
-        layout="@layout/include_title_login"
-        android:id="@+id/include2"/>
+        android:id="@+id/include2"
+        layout="@layout/include_title_login"/>
+
+
 
     <ListView
         android:id="@+id/lv_spot_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/include2"
         android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/include2"
         android:divider="@null"
-        android:layout_alignParentStart="true"/>
+   />
 </RelativeLayout>

@@ -18,11 +18,18 @@ import java.util.List;
 public class SpotListViewAdapter extends BaseViewHolderAdapter<SpotListViewHolder> {
     /**
      * @param datas
-     *         数据源
+     * 数据源
      * @param activity
      */
+    private SpotListViewHolder[] mSpotListViewHolders;
+    private static final String TAG = "SpotListViewAdapter";
+
     public SpotListViewAdapter(List datas, Activity activity) {
         super(datas, activity);
+    }
+
+    public SpotListViewHolder[] getSpotListViewHolders() {
+        return mSpotListViewHolders;
     }
 
     @Override
@@ -32,6 +39,7 @@ public class SpotListViewAdapter extends BaseViewHolderAdapter<SpotListViewHolde
 
     @Override
     protected void initItemView(SpotListViewHolder baseViewHolder) {
+        mSpotListViewHolders[mPosition] = baseViewHolder;
         baseViewHolder.setIcon((ImageView) mView.findViewById(R.id.iv_item_spot));
         baseViewHolder.setTitle((TextView) mView.findViewById(R.id.tv_item_title));
         baseViewHolder.setContent((TextView) mView.findViewById(R.id.tv_item_description));
@@ -40,12 +48,19 @@ public class SpotListViewAdapter extends BaseViewHolderAdapter<SpotListViewHolde
 
     @Override
     protected void initItemData(SpotListViewHolder baseViewHolder) {
+        mSpotListViewHolders[mPosition] = baseViewHolder;
         SpotTicketJson.ListBean spotListViewBean = (SpotTicketJson.ListBean) mDatas.get(mPosition);
         baseViewHolder.getTitle().setText(spotListViewBean.getName());
         BitmapUtils bitmapUtils = new BitmapUtils(mActivity);
         bitmapUtils.display(baseViewHolder.getIcon(), spotListViewBean.getUrl());
         baseViewHolder.getContent().setText(spotListViewBean.getDescription());
         baseViewHolder.getPrice().setText("￥" + spotListViewBean.getPrice());
+    }
+
+    @Override
+    public void setDatas(List datas) {
+        super.setDatas(datas);
+        mSpotListViewHolders = new SpotListViewHolder[datas.size()];
     }
 
     @Override
