@@ -1,7 +1,27 @@
 package com.travel.ac.adapter;
 
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import com.travel.R;
+import com.travel.ac.act.ItemActivity;
+import com.travel.ac.adapter.viewholder.MainListViewHolder;
+import com.travel.ac.bean.MyTravelItemBean;
+import com.travel.ac.bean.TravelListBean;
+import com.travel.ac.utils.GetAssignedResultId;
+import com.travel.ac.utils.ImageCache;
+import com.travel.ac.utils.ImageFetcher;
+import com.travel.ac.view.CircleImageView;
+import com.travel.ac.view.CircleView;
+
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -15,20 +35,6 @@ import android.widget.ListAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.lidroid.xutils.BitmapUtils;
-import com.travel.R;
-import com.travel.ac.act.ItemActivity;
-import com.travel.ac.adapter.viewholder.MainListViewHolder;
-import com.travel.ac.bean.MyTravelItemBean;
-import com.travel.ac.bean.TravelListBean;
-import com.travel.ac.utils.GetAssignedResultId;
-import com.travel.ac.view.CircleView;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
-
 /**
  * Created by lwh on 2016/5/4. description
  */
@@ -40,16 +46,17 @@ public class MainListViewAdapter extends BaseViewHolderAdapter<MainListViewHolde
     private MyTask mTimerTask;
     private Timer  mTimer;
     private static final String LOG_TAG = "MainListViewAdapter";
-    private final List        mDatas2;
-    private final MainAdapter mMainAdapter;
-    private final MyViewPager mMyViewPager;
+    private final List         mDatas2;
+    private final MainAdapter  mMainAdapter;
+    private final MyViewPager  mMyViewPager;
+    private final ImageFetcher mImageFetcher;
 
     /**
      * @param datas
      *         数据源
      * @param activity
      */
-    public MainListViewAdapter(List datas, Activity activity) {
+    public MainListViewAdapter(List datas, Activity activity, Fragment f) {
         super(datas, activity);
         mTimerTask = new MyTask();
         mTimer = new Timer();
@@ -60,6 +67,18 @@ public class MainListViewAdapter extends BaseViewHolderAdapter<MainListViewHolde
         mMainAdapter = new MainAdapter(mDatas2, mActivity);
         mMyViewPager = new MyViewPager();
         mTimer.schedule(mTimerTask, 5000, 3000);
+        ImageCache.ImageCacheParams imageCacheParams = new ImageCache.ImageCacheParams(activity, "home");
+        imageCacheParams.setMemCacheSizePercent(0.25f);
+        InputStream inputStream = mActivity.getResources().openRawResource(R.mipmap.main_moren);
+        Bitmap      bitmap      = BitmapFactory.decodeStream(inputStream);
+        mImageFetcher = new ImageFetcher(mActivity, bitmap.getWidth(), bitmap.getHeight());
+        mImageFetcher.setLoadingImage(R.mipmap.main_moren);
+        mImageFetcher.addImageCache(f.getFragmentManager(), imageCacheParams);
+        mImageFetcher.getImageCache().getCacheItemSize();
+    }
+
+    public ImageFetcher getImageFetcher() {
+        return mImageFetcher;
     }
 
     @Override
@@ -87,7 +106,7 @@ public class MainListViewAdapter extends BaseViewHolderAdapter<MainListViewHolde
             baseViewHolder.setGridView((GridView) mView.findViewById(R.id.gv_main_view));
         }
         if (mPosition > 1) {
-            baseViewHolder.setImager((ImageView) mView.findViewById(R.id.im_image));
+            baseViewHolder.setImager((CircleImageView) mView.findViewById(R.id.im_image));
             baseViewHolder.setDescribe((TextView) mView.findViewById(R.id.tv_describe));
             baseViewHolder.setAmount((TextView) mView.findViewById(R.id.tv_amount));
         }
@@ -97,12 +116,11 @@ public class MainListViewAdapter extends BaseViewHolderAdapter<MainListViewHolde
     @Override
     protected void initItemData(MainListViewHolder baseViewHolder) {
         if (mPosition > 1) {
-            BitmapUtils             bitmapUtils      = new BitmapUtils(mActivity);
             TravelListBean.ListBean mainListViewBean = (TravelListBean.ListBean) getItem(mPosition);
-            bitmapUtils.display(baseViewHolder.getImager(), mainListViewBean.getUrl());
+
+            mImageFetcher.loadImage(mainListViewBean.getUrl(), baseViewHolder.getImager());
             baseViewHolder.getDescribe().setText(mainListViewBean.getDescription());
             baseViewHolder.getAmount().setText(mainListViewBean.getPrice());
-
 
         } else if (mPosition == 1) {
             gvMainView = baseViewHolder.getGridView();
@@ -253,6 +271,7 @@ public class MainListViewAdapter extends BaseViewHolderAdapter<MainListViewHolde
 
     @Override
     public Object getItem(int position) {
+
         return mDatas == null ? null : mDatas.get(position - 2);
     }
 

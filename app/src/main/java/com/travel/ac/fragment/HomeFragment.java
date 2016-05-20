@@ -2,7 +2,9 @@ package com.travel.ac.fragment;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
@@ -14,6 +16,8 @@ import com.travel.ac.adapter.MainListViewAdapter;
 import com.travel.ac.bean.GlobalParameter;
 import com.travel.ac.bean.TravelListBean;
 import com.travel.ac.utils.NetworkHelper;
+import com.travel.ac.utils.PropertiesUtils;
+import com.travel.ac.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,18 +46,27 @@ public class HomeFragment extends BaseFragment {
     @Override
     protected void initData() {
         datas = new ArrayList();
-        mMainListViewAdapter = new MainListViewAdapter(datas, (Activity) mContext);
-        NetworkHelper.requestAndResponse((Activity) mContext, GlobalParameter.URL_ROOT + "/read_travel_list", new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                Gson                          gson           = new Gson();
-                TravelListBean                travelListBean = gson.fromJson(response, TravelListBean.class);
-                List<TravelListBean.ListBean> list           = travelListBean.getList();
-                mMainListViewAdapter.setDatas(list);
-                mMainListViewAdapter.notifyDataSetChanged();
-            }
-        });
+        final Gson gson = new Gson();
+        mMainListViewAdapter = new MainListViewAdapter(datas, (Activity) mContext, HomeFragment.this);
+        String cacheData = PropertiesUtils.get("home", "");
         mListView.setAdapter(mMainListViewAdapter);
+        if (!TextUtils.isEmpty(cacheData)) {
+            TravelListBean travelListBean = gson.fromJson(cacheData, TravelListBean.class);
+            mMainListViewAdapter.setDatas(travelListBean.getList());
+            mMainListViewAdapter.notifyDataSetChanged();
+        } else {
+            NetworkHelper.requestAndResponse((Activity) mContext, GlobalParameter.URL_ROOT + "/read_travel_list", new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+
+                    TravelListBean                travelListBean = gson.fromJson(response, TravelListBean.class);
+                    List<TravelListBean.ListBean> list           = travelListBean.getList();
+                    PropertiesUtils.put(String.valueOf("home"), response, true);
+                    mMainListViewAdapter.setDatas(list);
+                    mMainListViewAdapter.notifyDataSetChanged();
+                }
+            });
+        }
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -68,6 +81,22 @@ public class HomeFragment extends BaseFragment {
                 }
             }
         });
+        mListView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView absListView, int scrollState) {
+                if (scrollState == AbsListView.OnScrollListener.SCROLL_STATE_FLING) {
+                    if (!Utils.hasHoneycomb()) {
+                        mMainListViewAdapter.getImageFetcher().setPauseWork(true);
+                    }
+                } else {
+                    mMainListViewAdapter.getImageFetcher().setPauseWork(false);
+                }
+            }
+
+            @Override
+            public void onScroll(AbsListView absListView, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+            }
+        });
     }
 
     @Override
@@ -80,7 +109,6 @@ public class HomeFragment extends BaseFragment {
     public void onResume() {
         super.onResume();
     }
-
 
     @Override
     public void onPause() {

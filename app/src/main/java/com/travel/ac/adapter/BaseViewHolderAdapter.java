@@ -14,7 +14,7 @@ import java.util.List;
  */
 public abstract class BaseViewHolderAdapter<T extends BaseViewHolder> extends BaseAdapter
 {
-
+	public int				mCount;
 	protected Activity		mActivity;
 	protected View			mView;
 	protected int			mPosition;
@@ -96,6 +96,10 @@ public abstract class BaseViewHolderAdapter<T extends BaseViewHolder> extends Ba
 	@Override
 	public int getCount()
 	{
+		if (mCount != 0)
+		{
+			return mCount;
+		}
 		return mDatas == null ? 0 : mDatas.size();
 	}
 

@@ -10,6 +10,7 @@
     <string name="input_phone">请输入手机号</string>
     <string name="checkNo">验证码</string>
     <string name="input_checkNP">请输入手机获取的验证码</string>
+    <string name="no_network_connection_toast">网络连接异常</string>
     <string-array name="tab_string">
         <item>首页</item>
         <item>我的订单</item>

@@ -68,7 +68,7 @@ public class HomeFragmentBackups extends BaseFragment {
         datas = new ArrayList();
         cvMainCount.setNumber(mNumber);
         tvSearch.setOnClickListener(this);
-        mMainListViewAdapter = new MainListViewAdapter(datas, (Activity) mContext);
+        mMainListViewAdapter = new MainListViewAdapter(datas, (Activity) mContext,this);
         NetworkHelper.requestAndResponse((Activity) mContext, GlobalParameter.URL_ROOT + "/read_travel_list", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {

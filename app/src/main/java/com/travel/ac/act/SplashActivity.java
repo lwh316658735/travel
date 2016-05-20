@@ -3,6 +3,7 @@ package com.travel.ac.act;
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.os.Build;
+import android.os.SystemClock;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.ImageView;
 import com.travel.R;
 import com.travel.ac.utils.DataPersistence;
 import com.travel.ac.utils.GetAssignedResultId;
+import com.travel.ac.utils.PropertiesUtils;
 import com.travel.ac.view.CircleView;
 
 /**
@@ -19,8 +21,9 @@ import com.travel.ac.view.CircleView;
  */
 public class SplashActivity extends BaseActivity
 {
-	private ViewPager  vpSplash;
-	private CircleView cvCircle;
+	private ViewPager	vpSplash;
+	private CircleView	cvCircle;
+	private ImageView	bg;
 
 	@Override
 	protected int setLayoutId()
@@ -31,13 +34,36 @@ public class SplashActivity extends BaseActivity
 	@Override
 	protected void initData()
 	{
+		new Thread(new Runnable() {
+			@Override
+			public void run()
+			{
+				PropertiesUtils.init(SplashActivity.this, null, "imageCache.txt");
+			}
+		}).start();
 		//判断是否第一次进入程序
 		if (DataPersistence.getData(mActivity).getBoolean(getString(R.string.FIRST), false))
 		{
-			Intent in = new Intent();
-			in.setClass(mActivity, MainActivity.class);
-			mActivity.startActivity(in);
-			finish();
+			bg.setVisibility(View.VISIBLE);
+			cvCircle.setVisibility(View.GONE);
+			vpSplash.setVisibility(View.GONE);
+			new Thread() {
+				@Override
+				public void run()
+				{
+					SystemClock.sleep(1000);
+					SplashActivity.this.runOnUiThread(new Runnable() {
+						@Override
+						public void run()
+						{
+							Intent in = new Intent();
+							in.setClass(mActivity, MainActivity.class);
+							mActivity.startActivity(in);
+							finish();
+						}
+					});
+				}
+			}.start();
 			return;
 		}
 		//设置viewpager适配器
@@ -66,6 +92,7 @@ public class SplashActivity extends BaseActivity
 				View view = View.inflate(mActivity, R.layout.viewpager_item, null);
 				ImageView iv_splash = (ImageView) view.findViewById(R.id.im_splash);
 				iv_splash.setBackgroundResource(GetAssignedResultId.GetAssigned("g" + (position + 1), "mipmap"));
+
 				if ((position + 1) == getCount())
 				{
 					iv_splash.setOnClickListener(new View.OnClickListener() {
@@ -112,6 +139,9 @@ public class SplashActivity extends BaseActivity
 	@Override
 	protected void initView()
 	{
+
+		bg = (ImageView) findViewById(R.id.bg);
+
 		vpSplash = (ViewPager) findViewById(R.id.vp_splash);
 		cvCircle = (CircleView) findViewById(R.id.cv_circle);
 	}

@@ -15,7 +15,6 @@ public class BaseApplication extends Application {
     public static Application sApplication;
     //全局Handler
     public static Handler     sHandler;
-
     @Override
     public void onCreate() {
         super.onCreate();
@@ -26,4 +25,5 @@ public class BaseApplication extends Application {
         JPushInterface.setDebugMode(true);
         JPushInterface.init(this);
     }
+
 }
