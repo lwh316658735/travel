@@ -16,23 +16,26 @@
 
 package com.travel.ac.utils;
 
+import java.lang.ref.WeakReference;
+
+import com.lidroid.xutils.bitmap.core.AsyncDrawable;
+import com.travel.BuildConfig;
+import com.travel.ac.view.CircleImageView;
+
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.TransitionDrawable;
 import android.os.Build;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.widget.ImageView;
-
-import com.travel.BuildConfig;
-import com.travel.ac.view.CircleImageView;
-
-import java.lang.ref.WeakReference;
 
 /**
  * This class wraps up completing some arbitrary long running work when loading
@@ -86,6 +89,10 @@ public abstract class ImageWorker {
         if (data == null) {
             return;
         }
+        /*
+        imageView == null 的时候图片为普通模式
+        否则为圆角显示
+         */
         if (imageView instanceof CircleImageView) {
             mCircleImageView = (CircleImageView) imageView;
         }
@@ -257,7 +264,9 @@ public abstract class ImageWorker {
      */
     private static BitmapWorkerTask getBitmapWorkerTask(ImageView imageView) {
         if (imageView != null) {
-            //@TODO 有修改
+            /*
+            网络请求对应的图片要和控件对应
+             */
             final Drawable drawable = (Drawable) imageView.getTag();
             //            Log.e(TAG, "=====================================================getBitmapWorkerTask:" + drawable);
             if (drawable instanceof AsyncDrawable) {
@@ -422,26 +431,28 @@ public abstract class ImageWorker {
      * @param drawable
      */
     private void setImageDrawable(ImageView imageView, Drawable drawable) {
-        //@TODO 实现渐变效果
-        //        if (mFadeInBitmap) {
-        //            // Transition drawable with a transparent drawable and the final drawable
-        //            final TransitionDrawable td = new TransitionDrawable(new Drawable[]{new ColorDrawable(android.R.color.transparent), drawable});
-        //            // Set background to loading bitmap
-        //            //下载时默认图片
-        //            //            imageView.setBackgroundDrawable(new BitmapDrawable(mResources, mLoadingBitmap));
-        //            if (mCircleImageView == null) {
-        //                imageView.setImageDrawable(td);
-        //            } else {
-        //                ((CircleImageView) imageView).setImage(td);
-        //            }
-        //            td.startTransition(FADE_IN_TIME);
-        //        } else {
-        if (mCircleImageView == null) {
-            imageView.setImageDrawable(drawable);
+        /*
+         加载图片渐变效果
+         */
+        if (mFadeInBitmap && mCircleImageView == null) {
+            // Transition drawable with a transparent drawable and the final drawable
+            final TransitionDrawable td = new TransitionDrawable(new Drawable[]{new ColorDrawable(android.R.color.transparent), drawable});
+            // Set background to loading bitmap
+            //下载时默认图片
+            //            imageView.setBackgroundDrawable(new BitmapDrawable(mResources, mLoadingBitmap));
+            if (mCircleImageView == null) {
+                imageView.setImageDrawable(td);
+            } else {
+                ((CircleImageView) imageView).setImage(td);
+            }
+            td.startTransition(FADE_IN_TIME);
         } else {
-            ((CircleImageView) imageView).setImage(drawable);
+            if (mCircleImageView == null) {
+                imageView.setImageDrawable(drawable);
+            } else {
+                ((CircleImageView) imageView).setImage(drawable);
+            }
         }
-        //        }
     }
 
     /**
