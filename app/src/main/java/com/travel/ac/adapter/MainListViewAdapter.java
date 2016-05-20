@@ -230,8 +230,10 @@ public class MainListViewAdapter extends BaseViewHolderAdapter<MainListViewHolde
             mActivity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    int currentItem = vpMain.getCurrentItem();
-                    vpMain.setCurrentItem(++currentItem);
+                    if (vpMain != null) {
+                        int currentItem = vpMain.getCurrentItem();
+                        vpMain.setCurrentItem(++currentItem);
+                    }
                 }
             });
 
