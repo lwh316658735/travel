@@ -439,7 +439,7 @@ public abstract class ImageWorker {
             final TransitionDrawable td = new TransitionDrawable(new Drawable[]{new ColorDrawable(android.R.color.transparent), drawable});
             // Set background to loading bitmap
             //下载时默认图片
-            //            imageView.setBackgroundDrawable(new BitmapDrawable(mResources, mLoadingBitmap));
+            imageView.setBackgroundDrawable(new BitmapDrawable(mResources, mLoadingBitmap));
             if (mCircleImageView == null) {
                 imageView.setImageDrawable(td);
             } else {
