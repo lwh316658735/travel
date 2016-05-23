@@ -1,6 +1,8 @@
 package com.travel.ac.utils;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import java.io.File;
@@ -27,7 +29,7 @@ public class PropertiesUtils
 	private static OutputStream		out			= null;
 	private static File				f;
 
-	public static void init(Context context, String path, String fileName)
+	public static void init(Context context, @Nullable String path, @NonNull String fileName)
 	{
 		if (path == null || path.equals(""))
 		{
