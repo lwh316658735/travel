@@ -6,12 +6,12 @@
               android:padding="15dp">
 
 
-    <com.travel.ac.view.CircleImageView
+    <com.travel.ac.view.RecyclingImageView
         android:id="@+id/im_image"
         android:layout_width="match_parent"
-        android:layout_height="170dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:padding="10dp"
+
         android:scaleType="fitXY"/>
 
     <TextView

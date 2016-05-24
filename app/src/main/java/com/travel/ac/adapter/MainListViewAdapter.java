@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import com.travel.BuildConfig;
 import com.travel.R;
 import com.travel.ac.act.ItemActivity;
 import com.travel.ac.adapter.viewholder.MainListViewHolder;
@@ -14,19 +15,23 @@ import com.travel.ac.bean.TravelListBean;
 import com.travel.ac.utils.GetAssignedResultId;
 import com.travel.ac.utils.ImageCache;
 import com.travel.ac.utils.ImageFetcher;
-import com.travel.ac.view.CircleImageView;
 import com.travel.ac.view.CircleView;
+import com.travel.ac.view.RecyclingImageView;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Outline;
+import android.os.Build;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewOutlineProvider;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -106,7 +111,7 @@ public class MainListViewAdapter extends BaseViewHolderAdapter<MainListViewHolde
             baseViewHolder.setGridView((GridView) mView.findViewById(R.id.gv_main_view));
         }
         if (mPosition > 1) {
-            baseViewHolder.setImager((CircleImageView) mView.findViewById(R.id.im_image));
+            baseViewHolder.setImager((RecyclingImageView) mView.findViewById(R.id.im_image));
             baseViewHolder.setDescribe((TextView) mView.findViewById(R.id.tv_describe));
             baseViewHolder.setAmount((TextView) mView.findViewById(R.id.tv_amount));
         }
@@ -116,8 +121,23 @@ public class MainListViewAdapter extends BaseViewHolderAdapter<MainListViewHolde
     @Override
     protected void initItemData(MainListViewHolder baseViewHolder) {
         if (mPosition > 1) {
-            TravelListBean.ListBean mainListViewBean = (TravelListBean.ListBean) getItem(mPosition);
+            RecyclingImageView imager = baseViewHolder.getImager();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                imager.setOutlineProvider(new ViewOutlineProvider() {
+                    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+                    @Override
+                    public void getOutline(View view, Outline outline) {
+                        final int margin = Math.min(view.getWidth(), view.getHeight()) / 20;
+                        outline.setRoundRect(margin, margin, view.getWidth() - margin, view.getHeight() - margin, margin / 2);
+                    }
+                });
+                if (!imager.getClipToOutline()) {
+                    imager.setClipToOutline(true);
 
+                }
+            }
+
+            TravelListBean.ListBean mainListViewBean = (TravelListBean.ListBean) getItem(mPosition);
             mImageFetcher.loadImage(mainListViewBean.getUrl(), baseViewHolder.getImager());
             baseViewHolder.getDescribe().setText(mainListViewBean.getDescription());
             baseViewHolder.getAmount().setText(mainListViewBean.getPrice());

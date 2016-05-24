@@ -4,10 +4,16 @@
               android:layout_height="match_parent"
               android:orientation="vertical">
 
-    <ListView
-        android:id="@+id/lv_home_list"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/srl_refresh"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="50dp">
-    </ListView>
+        android:layout_height="match_parent">
+
+        <ListView
+            android:id="@+id/lv_home_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="50dp">
+        </ListView>
+    </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>

@@ -2,13 +2,16 @@ package com.travel.ac.fragment;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.google.gson.Gson;
 import com.travel.R;
 import com.travel.ac.act.ParticularSpotActivity;
@@ -32,6 +35,7 @@ public class HomeFragment extends BaseFragment {
     private MainListViewAdapter           mMainListViewAdapter;
     private List<TravelListBean.ListBean> datas;
     private String mAction = "/read_travel_ticket";
+    private SwipeRefreshLayout srlRefresh;
 
     @Override
     protected int setContentView() {
@@ -40,6 +44,9 @@ public class HomeFragment extends BaseFragment {
 
     @Override
     protected void initView() {
+
+        srlRefresh = (SwipeRefreshLayout) mView.findViewById(R.id.srl_refresh);
+
         mListView = (ListView) mView.findViewById(R.id.lv_home_list);
     }
 
@@ -50,6 +57,32 @@ public class HomeFragment extends BaseFragment {
         mMainListViewAdapter = new MainListViewAdapter(datas, (Activity) mContext, HomeFragment.this);
         String cacheData = PropertiesUtils.get("home", "");
         mListView.setAdapter(mMainListViewAdapter);
+        srlRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                NetworkHelper.requestAndResponse((Activity) mContext, GlobalParameter.URL_ROOT + "/read_travel_list", new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                        TravelListBean                travelListBean = gson.fromJson(response, TravelListBean.class);
+                        List<TravelListBean.ListBean> list           = travelListBean.getList();
+                        PropertiesUtils.put(String.valueOf("home"), response, true);
+                        mMainListViewAdapter.setDatas(list);
+                        mMainListViewAdapter.notifyDataSetChanged();
+                        srlRefresh.setRefreshing(false);
+                    }
+
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        if (srlRefresh.isRefreshing()) {
+                            srlRefresh.setRefreshing(false);
+                            Toast.makeText(mContext, "刷新失败", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            }
+        });
         if (!TextUtils.isEmpty(cacheData)) {
             TravelListBean travelListBean = gson.fromJson(cacheData, TravelListBean.class);
             mMainListViewAdapter.setDatas(travelListBean.getList());

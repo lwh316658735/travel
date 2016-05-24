@@ -5,8 +5,8 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.travel.ac.view.CircleImageView;
 import com.travel.ac.view.CircleView;
+import com.travel.ac.view.RecyclingImageView;
 
 /**
  * Created by lwh on 2016/5/4. description
@@ -14,11 +14,11 @@ import com.travel.ac.view.CircleView;
 public class MainListViewHolder extends BaseViewHolder
 {
 
-	private ViewPager       viewPager;
-	private CircleImageView imager;
-	private TextView        describe;
-	private TextView        amount;
-	private GridView        mGridView;
+	private ViewPager			viewPager;
+	private RecyclingImageView	imager;
+	private TextView			describe;
+	private TextView			amount;
+	private GridView			mGridView;
 	public SubViewHolder		mSubViewHolder	= new SubViewHolder();
 
 	public GridView getGridView()
@@ -41,12 +41,12 @@ public class MainListViewHolder extends BaseViewHolder
 		this.viewPager = viewPager;
 	}
 
-	public CircleImageView getImager()
+	public RecyclingImageView getImager()
 	{
 		return imager;
 	}
 
-	public void setImager(CircleImageView imager)
+	public void setImager(RecyclingImageView imager)
 	{
 		this.imager = imager;
 	}
